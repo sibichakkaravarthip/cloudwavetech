@@ -15,9 +15,67 @@ const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 const path = require('path');
+const mysql = require('mysql2/promise');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const app = express();
+
+let dbPool = null;
+
+async function initDatabase() {
+  const host = process.env.DB_HOST || 'localhost';
+  const port = parseInt(process.env.DB_PORT || '3306', 10);
+  const user = process.env.DB_USER || 'root';
+  const password = process.env.DB_PASSWORD || '';
+  const database = process.env.DB_NAME || 'cloudwavetech';
+
+  console.log(`[Database] Attempting connection to MySQL server at ${host}:${port}...`);
+
+  try {
+    // 1. Establish connection to MySQL without specifying a database to ensure it exists
+    const tempConnection = await mysql.createConnection({
+      host,
+      port,
+      user,
+      password
+    });
+
+    console.log('[Database] Connected to MySQL server. Ensuring database exists...');
+    await tempConnection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
+    await tempConnection.end();
+
+    // 2. Create persistent connection pool targeting our database
+    dbPool = mysql.createPool({
+      host,
+      port,
+      user,
+      password,
+      database,
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0
+    });
+
+    console.log(`[Database] Connection pool created for database: ${database}`);
+
+    // 3. Create the contact_submissions table if it does not exist
+    const createTableQuery = `
+      CREATE TABLE IF NOT EXISTS contact_submissions (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        subject VARCHAR(255),
+        message TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+    `;
+    await dbPool.query(createTableQuery);
+    console.log('[Database] contact_submissions table checked/created successfully.');
+  } catch (error) {
+    console.error('[Database] CRITICAL: Initialization failed:', error.message);
+    throw error;
+  }
+}
 
 // 1. Configure Middlewares
 app.use(cors());
@@ -68,6 +126,28 @@ const validateContactPayload = (req, res, next) => {
 app.post('/send', validateContactPayload, async (req, res, next) => {
   const { name, email, subject, message } = req.body;
   const submissionTime = new Date().toLocaleString('en-US', { timeZoneName: 'short' });
+
+  // Save submission to MySQL database
+  try {
+    const insertQuery = `
+      INSERT INTO contact_submissions (name, email, subject, message)
+      VALUES (?, ?, ?, ?);
+    `;
+    await dbPool.query(insertQuery, [
+      name.trim(),
+      email.trim(),
+      subject ? subject.trim() : null,
+      message.trim()
+    ]);
+    console.log('[Database] Contact submission successfully persisted in MySQL.');
+  } catch (dbError) {
+    console.error('[Database] Failed to persist contact submission in MySQL:', dbError);
+    return res.status(500).json({
+      success: false,
+      error: 'Database Persistence Failure',
+      message: 'Failed to record your submission in the database. Please try again later.'
+    });
+  }
 
   // Extract env variables
   const emailUser = process.env.EMAIL_USER;
@@ -293,6 +373,17 @@ process.on('unhandledRejection', (reason, promise) => {
 
 // 6. Bind to Port
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`[CloudWaveTech Backend] Server successfully running on port ${PORT}`);
-});
+
+async function startServer() {
+  try {
+    await initDatabase();
+    app.listen(PORT, () => {
+      console.log(`[CloudWaveTech Backend] Server successfully running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server due to database initialization failure:', error);
+    process.exit(1);
+  }
+}
+
+startServer();

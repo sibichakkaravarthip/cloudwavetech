@@ -15,6 +15,7 @@ import CloudEngineerContact from './components/CloudEngineerContact';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import WhatsAppFloating from './components/WhatsAppFloating';
+import BackendDetailsModal from './components/BackendDetailsModal';
 import cloudLogo from '../img/Cloud-image-transparent.png';
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [loaderLog, setLoaderLog] = useState('');
+  const [backendModalOpen, setBackendModalOpen] = useState(false);
 
   // Manage Dark/Light Mode Tailwind class
   useEffect(() => {
@@ -184,19 +186,21 @@ export default function App() {
       <main className="pt-28">
         <Hero />
         <About />
-        <Services />
+        <Services openBackendModal={() => setBackendModalOpen(true)} />
         <Skills />
         <Architecture />
         <Certifications />
         <Portfolio />
         <Testimonials />
-        <Pricing />
+        <Pricing openBackendModal={() => setBackendModalOpen(true)} />
         <CloudEngineerContact />
         <Contact />
       </main>
 
       <Footer />
       <WhatsAppFloating />
+
+      <BackendDetailsModal isOpen={backendModalOpen} onClose={() => setBackendModalOpen(false)} />
 
     </div>
   );

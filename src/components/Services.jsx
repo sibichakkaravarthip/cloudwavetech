@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export default function Services() {
+export default function Services({ openBackendModal }) {
   const serviceList = [
     {
       title: 'AWS EC2 Hosting',
@@ -124,6 +124,18 @@ export default function Services() {
                 <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
                   {service.description}
                 </p>
+
+                {service.title === 'Full Stack Deployment' && (
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openBackendModal();
+                    }}
+                    className="mb-6 px-3.5 py-1.5 rounded-lg border border-blue-500/30 hover:border-blue-500 bg-blue-500/10 hover:bg-blue-500/20 text-blue-500 dark:text-blue-400 hover:text-white transition-all text-xs font-bold w-fit cursor-pointer flex items-center gap-1.5"
+                  >
+                    <span>Backend Details</span>
+                  </button>
+                )}
               </div>
 
               {/* Decorative line */}

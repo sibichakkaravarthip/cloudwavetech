@@ -35,7 +35,7 @@ export default function Hero() {
           {/* Heading */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-gradient-white">
             AWS Cloud Hosting & <br />
-            <span className="text-gradient">Deployment Solutions</span>
+            <span className="text-gradient">Website Development</span>
           </h1>
 
           {/* Short Intro */}

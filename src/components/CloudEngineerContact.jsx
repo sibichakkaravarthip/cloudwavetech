@@ -1,7 +1,7 @@
-import React from 'react';
+  import React from 'react';
 import { motion } from 'framer-motion';
 import { FaWhatsapp } from 'react-icons/fa';
-import { Server, Database, ShieldCheck, CloudLightning, Activity, Clock, ArrowRight } from 'lucide-react';
+import { Server, Database, ShieldCheck, CloudLightning, Activity, Clock, ArrowRight, Code } from 'lucide-react';
 
 export default function CloudEngineerContact() {
   const phoneNumber = '916380710952';
@@ -9,11 +9,18 @@ export default function CloudEngineerContact() {
 
   const quickSupports = [
     {
-      label: 'Deploy Website',
-      desc: 'React, Next.js, or HTML static sites on AWS EC2, S3, or Amplify.',
-      message: 'Hello CloudWaveTech, I need website deployment support on AWS.',
-      icon: Server,
+      label: 'Website Development',
+      desc: 'React, Next.js, or custom responsive portfolio & business sites.',
+      message: 'Hello CloudWaveTech, I am interested in Website Development services ($79 starting package).',
+      icon: Code,
       color: 'border-emerald-500/20 hover:border-emerald-500/50 text-emerald-500 shadow-emerald-500/5 hover:shadow-emerald-500/20'
+    },
+    {
+      label: 'Backend Development',
+      desc: 'Node.js/Express.js server config, CRUD API & DB integrations.',
+      message: 'Hello CloudWaveTech, I am interested in Backend Development services ($49 starting package).',
+      icon: Database,
+      color: 'border-purple-500/20 hover:border-purple-500/50 text-purple-500 shadow-purple-500/5 hover:shadow-purple-500/20'
     },
     {
       label: 'AWS Hosting Support',
@@ -30,19 +37,13 @@ export default function CloudEngineerContact() {
       color: 'border-cyan-500/20 hover:border-cyan-500/50 text-cyan-500 shadow-cyan-500/5 hover:shadow-cyan-500/20'
     },
     {
-      label: 'Cloud Migration',
-      desc: 'Migrate server stack, databases, and assets from on-prem or VPS to AWS.',
-      message: 'Hello CloudWaveTech, I need AWS cloud migration support.',
-      icon: CloudLightning,
-      color: 'border-amber-500/20 hover:border-amber-500/50 text-amber-500 shadow-amber-500/5 hover:shadow-amber-500/20'
-    },
-    {
-      label: 'Server Issue Fix',
-      desc: 'Troubleshoot down servers, Linux administration, Nginx errors, & SSL renewal.',
-      message: 'Hello CloudWaveTech, I have an urgent server issue that needs fixing.',
-      icon: Activity,
-      color: 'border-rose-500/30 hover:border-rose-500/65 text-rose-500 shadow-rose-500/5 hover:shadow-rose-500/20'
+      label: 'Deploy Website',
+      desc: 'React, Next.js, or HTML static sites on AWS EC2, S3, or Amplify.',
+      message: 'Hello CloudWaveTech, I need website deployment support on AWS.',
+      icon: Server,
+      color: 'border-emerald-500/20 hover:border-emerald-500/50 text-emerald-500 shadow-emerald-500/5 hover:shadow-emerald-500/20'
     }
+
   ];
 
   const handleOpenWhatsApp = (message) => {
@@ -73,7 +74,7 @@ export default function CloudEngineerContact() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-800 dark:text-white leading-tight">
-            Talk Directly With a <span className="text-gradient">Cloud Engineer</span>
+            Talk Directly With a <span className="text-gradient">FullStack Cloud Engineer</span>
           </h2>
 
           <p className="text-slate-600 dark:text-slate-400 text-sm md:text-base leading-relaxed">
@@ -126,7 +127,7 @@ export default function CloudEngineerContact() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {quickSupports.map((item, idx) => {
               const Icon = item.icon;
-              const isUrgent = idx === 4;
+              const isUrgent = false;
               return (
                 <motion.div
                   key={idx}
@@ -148,7 +149,7 @@ export default function CloudEngineerContact() {
                         <span className={`text-[10px] uppercase font-bold tracking-widest opacity-60 flex items-center gap-1 transition-colors ${
                           isUrgent ? 'text-rose-500 opacity-100' : 'group-hover:text-emerald-500'
                         }`}>
-                          <FaWhatsapp className="w-3.5 h-3.5" /> {isUrgent ? 'Trigger Pager' : 'Instant Connect'}
+                          
                         </span>
                       </div>
                       
@@ -157,7 +158,7 @@ export default function CloudEngineerContact() {
                         <h4 className="text-sm font-bold text-slate-800 dark:text-white flex items-center gap-2">
                           {item.label}
                           {isUrgent && (
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-rose-500 text-white animate-pulse">URGENT SLA</span>
+                            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold  text-white animate-pulse"></span>
                           )}
                         </h4>
                         <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
@@ -167,11 +168,11 @@ export default function CloudEngineerContact() {
                     </div>
 
                     {/* Bottom Status / CTA */}
-                    <div className={`flex items-center gap-1 text-[11px] font-bold mt-2 transition-all transform translate-x-[-4px] group-hover:translate-x-0 ${
+                    {/* <div className={`flex items-center gap-1 text-[11px] font-bold mt-2 transition-all transform translate-x-[-4px] group-hover:translate-x-0 ${
                       isUrgent ? 'text-rose-500' : 'opacity-0 group-hover:opacity-100'
                     }`}>
                       {isUrgent ? 'Trigger Emergency Channel' : 'Deploy Channel'} <ArrowRight className="w-3 h-3" />
-                    </div>
+                    </div> */}
                   </div>
                 </motion.div>
               );

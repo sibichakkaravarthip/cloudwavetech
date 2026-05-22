@@ -12,10 +12,16 @@ export default function WhatsAppFloating() {
 
   const quickSupports = [
     {
-      label: 'Deploy Website',
-      desc: 'React/Next.js/HTML on AWS',
-      message: 'Hello CloudWaveTech, I need website deployment support on AWS.',
+      label: 'Website Development',
+      desc: 'React & custom business websites',
+      message: 'Hello CloudWaveTech, I am interested in Website Development services ($79 starting package).',
       color: 'from-emerald-500/10 to-teal-500/10 hover:from-emerald-500/20 hover:to-teal-500/20 border-emerald-500/20 hover:border-emerald-500/40 text-emerald-400'
+    },
+    {
+      label: 'Backend Development',
+      desc: 'Node.js, Express & Database APIs',
+      message: 'Hello CloudWaveTech, I am interested in Backend Development services ($49 starting package).',
+      color: 'from-purple-500/10 to-indigo-500/10 hover:from-purple-500/20 hover:to-indigo-500/20 border-purple-500/20 hover:border-purple-500/40 text-purple-400'
     },
     {
       label: 'AWS Hosting Support',
@@ -30,17 +36,12 @@ export default function WhatsAppFloating() {
       color: 'from-cyan-500/10 to-sky-500/10 hover:from-cyan-500/20 hover:to-sky-500/20 border-cyan-500/20 hover:border-cyan-500/40 text-cyan-400'
     },
     {
-      label: 'Cloud Migration',
-      desc: 'On-premise/other VPS to AWS Cloud',
-      message: 'Hello CloudWaveTech, I need AWS cloud migration support.',
-      color: 'from-amber-500/10 to-orange-500/10 hover:from-amber-500/20 hover:to-orange-500/20 border-amber-500/20 hover:border-amber-500/40 text-amber-400'
-    },
-    {
-      label: 'Server Issue Fix',
-      desc: 'Linux, Nginx & emergency bug fixes',
-      message: 'Hello CloudWaveTech, I have an urgent server issue that needs fixing.',
-      color: 'from-rose-500/10 to-red-500/10 hover:from-rose-500/20 hover:to-red-500/20 border-rose-500/20 hover:border-rose-500/40 text-rose-400'
+       label: 'Deploy Website',
+      desc: 'React/Next.js/HTML on AWS',
+      message: 'Hello CloudWaveTech, I need website deployment support on AWS.',
+      color: 'from-emerald-500/10 to-teal-500/10 hover:from-emerald-500/20 hover:to-teal-500/20 border-emerald-500/20 hover:border-emerald-500/40 text-emerald-400'
     }
+
   ];
 
   const handleOpenWhatsApp = (message) => {

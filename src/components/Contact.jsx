@@ -80,7 +80,7 @@ export default function Contact() {
     {
       label: 'WhatsApp Quick Chat',
       value: '+91 63807 10952',
-      href: 'https://wa.me/916380710952',
+      href: 'https://wa.me/916380710952?text=Hello%20CloudWaveTech%2C%20I%20am%20interested%20in%20your%20services.',
       icon: WhatsApp,
       accent: 'text-emerald-500 bg-emerald-500/5 border-emerald-500/10'
     },
