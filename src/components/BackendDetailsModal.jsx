@@ -64,6 +64,7 @@ export default function BackendDetailsModal({ isOpen, onClose }) {
               <p className="text-xs text-slate-400 leading-relaxed">
                 Simple backend solutions for websites and web applications.
               </p>
+              
             </div>
 
             {/* Pricing Section */}
